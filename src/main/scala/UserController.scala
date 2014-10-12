@@ -75,13 +75,14 @@ object UserController {
 			    return new ResponseEntity[String]("No user found for the mentioned User ID", HttpStatus.NOT_FOUND);
 			}else{
 				  var userString = userList(uid.toInt - 1)
-				  userString.keys.foreach{ i =>  
-				    						if(i.equalsIgnoreCase("name")) user.setName(userString(i))
-				    						if(i.equalsIgnoreCase("created_at")) user.setCreated_at(userString(i))
-				    						if(i.equalsIgnoreCase("user_id")) user.setUid(userString(i))
-				    						var updatedDate = new Date()
-				    						var ud = dateFormat.format(updatedDate)
-				    						user.setUpdated_at(ud)	}	
+				  userString.keys.foreach{
+				  i =>  if(i.equalsIgnoreCase("name")) user.setName(userString(i))
+				    	if(i.equalsIgnoreCase("created_at")) user.setCreated_at(userString(i))
+				    	if(i.equalsIgnoreCase("user_id")) user.setUid(userString(i))
+				    	var updatedDate = new Date()
+				    	var ud = dateFormat.format(updatedDate)
+				    	user.setUpdated_at(ud)
+				}	
 				  user.setEmail(user.getEmail)
 				  user.setPassword(user.getPassword)
 				  
