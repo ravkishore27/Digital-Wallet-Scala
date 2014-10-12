@@ -10,7 +10,6 @@ class BankAccount {
 var bid: String = _
 
 @BeanProperty
-@NotEmpty
 var account_name: String = _
   
 @BeanProperty
