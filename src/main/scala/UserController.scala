@@ -36,17 +36,19 @@ object UserController {
 	  var userid : Int = 1
 	    
 	  
-	  @RequestMapping(value=Array("/"),method =Array(RequestMethod.POST))
+	  @RequestMapping(method =Array(RequestMethod.POST))
 	  @ResponseStatus( HttpStatus.CREATED )
 	  @ResponseBody
 	  private def addUser(@Valid @RequestBody user :User) : Map[String, String] = {
 	    
 	    user.uid = userid.toString
-	    var userDetails = scala.collection.mutable.Map("user_id" -> userid.toString,
-	    												"email" -> user.getEmail,
-	    												"password" -> user.getPassword,
-	    												"created_at" -> user.getCreated_at,
-	    												"updated_at" -> user.getUpdated_at)	
+	    var userDetails = scala.collection.mutable.Map(
+	    	"user_id" -> userid.toString,
+	    	"email" -> user.getEmail,
+	    	"password" -> user.getPassword,
+	    	"created_at" -> user.getCreated_at,
+	    	"updated_at" -> user.getUpdated_at
+	    	)	
 	    if(user.getName != null) userDetails.put("name", user.getName)
 	    										
 	    userList(userid-1) = userDetails
@@ -83,11 +85,13 @@ object UserController {
 				  user.setEmail(user.getEmail)
 				  user.setPassword(user.getPassword)
 				  
-				  var userDetails = scala.collection.mutable.Map("user_id" -> user.getUid,
-				    												"email" -> user.getEmail,
-				    												"password" -> user.getPassword,
-				    												"created_at" -> user.getCreated_at,
-				    												"updated_at" -> user.getUpdated_at)	
+				  var userDetails = scala.collection.mutable.Map(
+				  	"user_id" -> user.getUid,
+				    "email" -> user.getEmail,
+				    "password" -> user.getPassword,
+				    "created_at" -> user.getCreated_at,
+				    "updated_at" -> user.getUpdated_at
+				    )	
 				  if(user.getName != null) userDetails.put("name", user.getName)
 				  userList(uid.toInt - 1) = userDetails
 				  return new ResponseEntity[String]((userList(uid.toInt-1)).toString, HttpStatus.OK);
@@ -106,10 +110,12 @@ object UserController {
 		}else{
 			idcard.cid = card_id
 			
-			var cardDetails = scala.collection.mutable.Map("user_id" -> uid,
-														   "card_id" -> card_id,
-			    										   "cardName" -> idcard.cardName,
-			    										   "cardNumber" -> idcard.cardNumber)	
+			var cardDetails = scala.collection.mutable.Map(
+				"user_id" -> uid,
+				"card_id" -> card_id,
+			    "cardName" -> idcard.cardName,
+			    "cardNumber" -> idcard.cardNumber
+			    )
 			    if(idcard.expDate  != null) cardDetails.put("expDate", idcard.expDate.toString() )
 			    idCardList.add(cardDetails)
 			    z(0) = cardDetails
@@ -165,11 +171,13 @@ object UserController {
 			return new ResponseEntity[String]("User ID does not exist", HttpStatus.NOT_FOUND);
 		}else{
 			weblogin.lid = login_id
-			var loginDetails = scala.collection.mutable.Map("user_id" -> uid,
-														   "login_id" -> login_id,
-			    										   "url" -> weblogin.url,
-			    										   "login" -> weblogin.login ,	
-			    										   "password" -> weblogin.password )
+			var loginDetails = scala.collection.mutable.Map(
+				"user_id" -> uid,
+				"login_id" -> login_id,
+			    "url" -> weblogin.url,
+			    "login" -> weblogin.login ,	
+			    "password" -> weblogin.password
+			    )
 			      webLoginList.add(loginDetails)
 			      z(0) = loginDetails
 			      return new ResponseEntity[String]((z(0)).toString(), HttpStatus.CREATED);
@@ -225,11 +233,12 @@ object UserController {
 			return new ResponseEntity[String]("User ID does not exist", HttpStatus.NOT_FOUND);
 		}else{
 			bankaccounts.bid = bank_id
-			var bankDetails = scala.collection.mutable.Map("user_id" -> uid,
-														   "bank_id" -> bank_id,
-			    										   "account_name" -> bankaccounts.account_name,
-			    										   "account_number" -> bankaccounts.account_number,	
-			    										   "routing_number" -> bankaccounts.routing_number)
+			var bankDetails = scala.collection.mutable.Map(
+				"user_id" -> uid,
+				"bank_id" -> bank_id,
+			    "account_name" -> bankaccounts.account_name,
+			    "account_number" -> bankaccounts.account_number,	
+			    "routing_number" -> bankaccounts.routing_number)
 			      bankAccountList.add(bankDetails)
 			      z(0) = bankDetails
 			      return new ResponseEntity[String]((z(0)).toString(), HttpStatus.CREATED);
